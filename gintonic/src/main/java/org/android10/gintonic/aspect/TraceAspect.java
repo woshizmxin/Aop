@@ -19,13 +19,26 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class TraceAspect {
 
-    private static final String POINTCUT_METHOD =
+    private static final String TAG = "jamal.jo";
+
+    private static final String POINTCUT_DEBUG_TRACE =
             "execution(@org.android10.gintonic.annotation.DebugTrace * *(..))";
 
     private static final String POINTCUT_CONSTRUCTOR =
             "execution(@org.android10.gintonic.annotation.DebugTrace *.new(..))";
 
-    @Pointcut(POINTCUT_METHOD)
+    private static final String POINTCUT_ON = "execution(* *..*.on*(..))";
+
+    @Pointcut(POINTCUT_ON)
+    public void logForActivity() {
+    }
+
+    @Around("logForActivity()")
+    public Object weaveOnJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
+        return record(joinPoint);
+    }
+
+    @Pointcut(POINTCUT_DEBUG_TRACE)
     public void methodAnnotatedWithDebugTrace() {
     }
 
@@ -34,7 +47,11 @@ public class TraceAspect {
     }
 
     @Around("methodAnnotatedWithDebugTrace() || constructorAnnotatedDebugTrace()")
-    public Object weaveJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object weaveDebugTraceJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
+        return record(joinPoint);
+    }
+
+    private Object record(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         String className = methodSignature.getDeclaringType().getSimpleName();
         String methodName = methodSignature.getName();
@@ -43,8 +60,7 @@ public class TraceAspect {
         stopWatch.start();
         Object result = joinPoint.proceed();
         stopWatch.stop();
-
-        DebugLog.log("jamal-aop",
+        DebugLog.log(TAG,
                 className + buildLogMessage(methodName, stopWatch.getTotalTimeMillis()));
 
         return result;
