@@ -23,7 +23,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mapGUI();
 //        initData();
-        Log.d("jamal.jo", "onCreate: "+initData());
+        for (int i = 0; i < 2; i++) {
+            Log.d("jamal.jo", "onData: " + transData(String.valueOf(i)));
+        }
     }
 
     @Override
@@ -84,5 +86,9 @@ public class MainActivity extends Activity {
                 .append(Looper.getMainLooper().getThread().getName());
         Log.d("jamal.jo", "initData: " + sb.toString());
         return "世界很大";
+    }
+
+    public String transData(String change) {
+        return "process: " + change;
     }
 }
