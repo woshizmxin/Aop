@@ -1,1 +1,1 @@
-include ':app', ':gintonic', ':aopgradle','gradleplugin'
+include ':app', ':gintonic', ':aopgradle'

@@ -1,19 +1,24 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
+
 dependencies {
     //gradle sdk
     compile gradleApi()
     //groovy sdk
     compile localGroovy()
+    compile 'org.aspectj:aspectjtools:1.8.6'
+    compile 'org.aspectj:aspectjrt:1.8.6'
+
 }
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 //group和version在后面使用自定义插件的时候会用到
-group='com.sankuai.gradleplugin'
-version='1.0.0'
+group = 'com.sankuai.aopgradle'
+version = '1.0.0'
 
 uploadArchives {
     repositories {

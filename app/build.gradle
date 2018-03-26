@@ -8,15 +8,10 @@ buildscript {
     dependencies {
         classpath 'org.aspectj:aspectjtools:1.8.1'
         classpath 'com.sankuai.aopgradle:aopgradle:1.0.0'
-        classpath 'com.sankuai.gradleplugin:gradleplugin:1.0.0'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.sankuai.gradleplugin'
-
-//apply plugin: 'com.sankuai.aopgradle'
-
 
 dependencies {
     compile project(':gintonic')

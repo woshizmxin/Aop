@@ -67,3 +67,5 @@ android.libraryVariants.all { variant ->
     }
   }
 }
+
+apply plugin: 'com.hc.gradle'
