@@ -45,3 +45,4 @@ gradlew.bat
 .travis.yml
 gintonic/build/
 gintonic/gintonic.iml
+tmp/
